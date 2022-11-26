@@ -22,7 +22,7 @@ import (
 
 func main() {
 	pkcs11Provider := "/usr/lib/opensc-pkcs11.so"
-	caCertPath := "9d.crt"
+	caCertPath := "9c.crt"
 
 	module, err := p11.OpenModule(pkcs11Provider)
 	if err != nil {

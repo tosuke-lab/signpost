@@ -129,6 +129,7 @@ func (k *p11Key) signECDSA(digest []byte) ([]byte, error) {
 		return nil, fmt.Errorf("failed to sign: %w", err)
 	}
 
+	// 2.3.1. ECDSA Signature Format
 	var sig dsaSig
 	if len(sigBytes) == 0 || len(sigBytes)%2 != 0 {
 		return nil, errors.New("invalid signature length")

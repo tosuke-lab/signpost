@@ -77,8 +77,8 @@ func GetP11PublicKey(pk p11.PublicKey) (PublicKey, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to get key type attribute: %w", err)
 	}
-	keyType := new(big.Int).SetBytes(keyTypeAttr).Uint64()
 
+	keyType := readP11CKUlong(keyTypeAttr)
 	switch keyType {
 	case pkcs11.CKK_RSA:
 		return getP11RSAPublicKey(pko)
@@ -100,7 +100,7 @@ func getP11RSAPublicKey(pko p11.Object) (PublicKey, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to get public exponent attribute: %w", err)
 	}
-	exponent := int(new(big.Int).SetBytes(exponentAttr).Uint64())
+	exponent := int(readP11CKUlong(exponentAttr))
 
 	return &rsa.PublicKey{
 		N: modulus,
